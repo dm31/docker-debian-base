@@ -1,0 +1,12 @@
+#!/usr/bin/with-contenv bash
+
+if [[ $PACKAGES != "" ]] && [[ $PACKAGES_HASRUN == "" ]]; then
+    echo "Installing new packages: $PACKAGES"
+    DEBIAN_FRONTEND=noninteractive
+    apt-get update
+    apt-get install -y $PACKAGES
+    apt-get autoremove -y
+    apt-get clean
+    rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
+    PACKAGES_HASRUN=YES
+fi
